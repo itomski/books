@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bücher</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <main class="container">
+        <div class="row">
+            <div class="col">
+
+                <ul class="nav nav-tabs pt-3">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/all" class="nav-link active">Übersicht</a></li>
+                    <li class="nav-item"><a href="/new" class="nav-link">Neues Buch</a></li>
+                </ul>
+
+                <h1>Bücher</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titel</th>
+                            <th>ISBN</th>
+                            <th>Preis</th>
+                            <th>Genre</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="b : ${books}">
+                            <td th:text="${b.id}"></td>
+                            <td th:text="${b.title}"></td>
+                            <td th:text="${b.isbn}"></td>
+                            <td th:text="${b.price}"></td>
+                            <td th:text="${b.genre}"></td>
+                            <td>
+                                <a th:href="@{/delete/{id}(id = ${b.id})}" class="btn btn-danger">Löschen</a>
+                                <a th:href="@{/edit/{id}(id = ${b.id})}" class="btn btn-warning">Bearbeiten</a>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

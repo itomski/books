@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="de" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bücher</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <h1 th:text="${title}"></h1>
-    <p th:text="${content}"></p>
+    <main class="container">
 
-    <ul th:if="${book != null}">
-        <li th:text="${book.title}"></li>
-        <li th:text="${book.price}"></li>
-        <li th:text="${book.genre}"></li>
-    </ul>
+        <ul class="nav nav-tabs pt-3">
+            <li class="nav-item"><a href="/" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="/all" class="nav-link">Übersicht</a></li>
+            <li class="nav-item"><a href="/new" class="nav-link">Neues Buch</a></li>
+        </ul>
 
+        <h1 th:text="${title}"></h1>
+        <p th:text="${content}"></p>
+
+    </main>
 </body>
 </html>

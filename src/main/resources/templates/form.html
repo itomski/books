@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bücher</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <main class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="nav nav-tabs mt-3">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/all" class="nav-link">Übersicht</a></li>
+                    <li class="nav-item"><a href="/new" class="nav-link active">Neues Buch</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6" th:unless="${book != null}">
+                <div class="alert alert-danger mt-3">
+                    Gewünschtes Buch nicht gefunden!
+                </div>
+            </div>
+
+            <div class="col-md-6" th:if="${book != null}">
+
+                <h1 th:text="${title}"></h1>
+
+                <form action="/" method="post">
+
+                    <input type="hidden" name="id" th:value="${book.id}">
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Name</label>
+                        <input type="text" name="title" id="title" class="form-control" th:value="${book.title}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input type="text" name="isbn" id="isbn" class="form-control" th:value="${book.isbn}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Beschreibung</label>
+                        <textarea name="description" id="description" class="form-control" th:text="${book.description}"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Preis</label>
+                        <input type="text" name="price" id="price" class="form-control" th:value="${book.price}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="genre" class="form-label">Genre</label>
+                        <select name="genre" id="genre" class="form-select">
+                            <option>KRIMI</option>
+                            <option>HORROR</option>
+                            <option>SCIFI</option>
+                            <option>ROMANZE</option>
+                            <option>DRAMA</option>
+                            <option>FANTASY</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Speichern</button>
+                </form>
+
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>

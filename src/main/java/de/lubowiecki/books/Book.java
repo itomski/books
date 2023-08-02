@@ -1,12 +1,32 @@
 package de.lubowiecki.books;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
 
+    @Id
+    @GeneratedValue
+    private int id;
+
     private String title;
+
+    @Column(length = 20, unique = true)
     private String isbn;
     private String description;
     private double price;
+
+    @Enumerated(EnumType.STRING)
     private Genre genre;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
