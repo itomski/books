@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -48,5 +49,40 @@ public class BookApiController {
     public String delete(@PathVariable int id) {
         repository.deleteById(id);
         return "{\"deleted\": true}";
+    }
+
+    @GetMapping("/genre/{genre}")
+    public List<Book> allByGenre(@PathVariable Genre genre) {
+        return repository.findAllByGenre(genre);
+    }
+
+    @GetMapping("/title/{str}")
+    public List<Book> allByTitle(@PathVariable String str) {
+        return repository.findAllByTitleLikeIgnoreCase("%" + str + "%");
+    }
+
+    @GetMapping("/q") // /api/v1/books/q?isbn=12345678
+    public Book allByIsbn(@RequestParam(required = true) String isbn) {
+        return repository.findByIsbn(isbn).orElse(new Book());
+    }
+
+    @GetMapping("/q2") // /api/v1/books/q2?genre=DRAMA&page=5
+    public String allByQuery(@RequestParam(required = true) Genre genre, @RequestParam(required = true) int page) {
+        return new StringBuilder()
+                .append("genre=")
+                .append(genre)
+                .append(",page=")
+                .append(page)
+                .toString();
+    }
+
+    @GetMapping("/q3") // /api/v1/books/q3?val=A&val=B&val=C
+    public String allByQuery(@RequestParam List<String> val) {
+        return val.toString();
+    }
+
+    @GetMapping("/q4") // /api/v1/books/q4?x=100&y=200&z=25
+    public String allByQuery(@RequestParam Map<String, Integer> map) {
+        return map.toString();
     }
 }

@@ -1,5 +1,7 @@
 package de.lubowiecki.books;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +21,10 @@ public class Book {
 
     @Enumerated(EnumType.STRING)
     private Genre genre;
+
+    @ManyToOne
+    private Author author;
+
 
     public int getId() {
         return id;
@@ -66,5 +72,13 @@ public class Book {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

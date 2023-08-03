@@ -20,11 +20,19 @@ public class BookController {
     @Autowired
     private BookRepository repository;
 
+    //@Autowired
+    //private AuthorList authorList;
+
+    @Autowired
+    private AuthorRepository authorRepository;
+
 
     @GetMapping("")
     public String index(Model model) {
         model.addAttribute("title", "READ");
         model.addAttribute("content", "Ressource lesen");
+        //model.addAttribute("content", authorList.getAll().toString());
+
         return "standard";
     }
 
@@ -37,7 +45,11 @@ public class BookController {
 
     @PostMapping("")
     public String create(Book book, Model model) {
-        repository.save(book);
+        Author author = new Author("Peter", "Parker");
+        // book.setAuthor(author);
+        // repository.save(book);
+        author.addBook(book);
+        authorRepository.save(author);
         return "redirect:/all"; // Umleitung auf /all Mapping
     }
 
